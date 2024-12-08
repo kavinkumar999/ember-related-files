@@ -1,10 +1,4 @@
-interface Type {
-  appRoot: string,
-  hostType: string,
-  path: string,
-  name: string,
-  key: string
-}
+import type { FileType } from '../index.d.ts';
 
 export const regexTypes = [
   // Pod Components
@@ -63,7 +57,7 @@ const groups = [
   return group.concat(typescript);
 });
 
-function detectType (relativeFilePath: string): Type | undefined {
+function detectType (relativeFilePath: string): FileType | undefined {
   return regexTypes
     .map((type) => {
       const m = relativeFilePath.match(type.exp);
@@ -150,7 +144,7 @@ function typeKeyToLabel (typeKey: string): string {
   return typeKey;
 }
 
-function getPath (sourceType: Type, typeKey: string): string {
+function getPath (sourceType: FileType, typeKey: string): string {
   const { appRoot, hostType, name } = sourceType;
   const [ispod, type, subtype, ext] = typeKey.split('-');
 
